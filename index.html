@@ -2,441 +2,433 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NFC Christmas Card</title>
+  <title>Christmas Card</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <style>
     :root {
-      --bg-cloud-dancer: #f5f0e6;
-      --card-red: #d3203b;
-      --card-green: #0b8746;
-      --card-gold: #ffd26f;
-      --text-light: #ffffff;
-      --text-soft: #ffeef5;
+      --bg-cloud-dancer: #f0eee9;   /* Cloud Dancer bảng Pantone */
+      --red-xmas: #e63946;
+      --green-xmas: #0b9b63;
+      --gold-xmas: #f4c95d;
+      --cream: #fff9ef;
+      --text-dark: #222222;
     }
 
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; padding: 0; margin: 0; }
 
     body {
-      min-height: 100vh;
+      font-family: system-ui, sans-serif;
       background: var(--bg-cloud-dancer);
+      height: 100vh;
+      overflow: hidden;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-        sans-serif;
-      color: #222;
-      overflow: hidden;
+      color: var(--text-dark);
     }
 
-    .wrapper {
-      position: relative;
+    /* ❄ Snow Canvas */
+    #snowCanvas {
+      position: fixed;
+      inset: 0;
       width: 100%;
-      max-width: 420px;
-      padding: 24px 16px;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
     }
 
-    .hint {
-      text-align: center;
-      font-size: 0.85rem;
-      margin-bottom: 12px;
-      opacity: 0.8;
-    }
-
+    /* 📌 Card Scene */
     .scene {
-      width: 100%;
-      aspect-ratio: 3 / 5;
-      max-height: 650px;
-      margin: 0 auto;
+      position: relative;
+      width: min(330px, 90vw);
+      height: min(530px, 80vh);
       perspective: 1200px;
-      touch-action: none; /* để drag mượt trên mobile */
+      z-index: 1;
     }
 
-    .card {
+    .card-3d {
       width: 100%;
       height: 100%;
       position: relative;
       transform-style: preserve-3d;
-      transition: transform 0.15s ease-out;
       cursor: grab;
+      transition: transform 0.25s ease-out;
     }
 
-    .card:active {
-      cursor: grabbing;
-    }
+    .card-3d:active { cursor: grabbing; }
 
     .card-face {
       position: absolute;
       inset: 0;
-      border-radius: 24px;
-      padding: 22px 20px;
+      border-radius: 22px;
       backface-visibility: hidden;
+      padding: 24px 22px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow:
-        0 18px 40px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(0, 0, 0, 0.08);
+      box-shadow: 0 22px 40px rgba(0,0,0,0.22);
     }
 
-    /* MẶT TRƯỚC */
+    /* 🌟 FRONT — Christmas Red */
     .card-front {
-      background: radial-gradient(circle at top left, #ff6b6b 0%, #c1121f 40%, #780000 100%);
-      color: var(--text-light);
+      background: linear-gradient(
+        135deg,
+        #ffe4e6 0%,
+        #ffb3b3 20%,
+        #ff6666 45%,
+        #d62828 70%,
+        #8b0000 100%
+      );
+      color: #ffffff;
     }
 
-    .front-top-tag {
-      font-size: 0.75rem;
-      letter-spacing: 0.16em;
+    .chip-pill {
+      align-self: flex-start;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+      backdrop-filter: blur(4px);
+      font-size: 12px;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
-      opacity: 0.9;
     }
 
-    .front-main {
-      margin-top: 20px;
-    }
+    .front-main-text { margin-top: 16px; }
 
     .front-greeting {
-      font-size: 1.9rem;
-      line-height: 1.1;
+      font-size: 26px;
       font-weight: 800;
-    }
-
-    .front-greeting span {
-      display: inline-block;
+      line-height: 1.2;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.25);
     }
 
     .front-sub {
-      margin-top: 12px;
-      font-size: 0.95rem;
-      max-width: 20rem;
-      color: var(--text-soft);
+      margin-top: 10px;
+      font-size: 14px;
+      opacity: 0.95;
+      line-height: 1.55;
     }
 
-    .front-pill {
-      margin-top: 18px;
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: rgba(0, 0, 0, 0.25);
-      font-size: 0.8rem;
-    }
-
-    .front-pill-emoji {
-      font-size: 1rem;
-    }
-
-    .front-bottom {
+    .front-footer {
       display: flex;
       justify-content: space-between;
       align-items: flex-end;
+      margin-top: 16px;
+      font-size: 13px;
+    }
+
+    .front-tags {
+      display: flex;
       gap: 8px;
-      margin-top: 18px;
-      font-size: 0.8rem;
-      color: #ffeef5;
+      flex-wrap: wrap;
+      font-size: 11px;
     }
 
-    .from-label {
-      text-transform: uppercase;
-      letter-spacing: 0.14em;
-      opacity: 0.9;
+    .tag-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(4px);
     }
 
-    .from-name {
-      font-weight: 600;
-      font-size: 0.9rem;
+    .tree-icon {
+      font-size: 34px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     }
 
-    .mini-note {
-      text-align: right;
-      max-width: 11rem;
-      opacity: 0.9;
-    }
-
-    /* MẶT SAU */
+    /* 🎄 BACK — Christmas Dinner Theme */
     .card-back {
-      background: linear-gradient(145deg, #0b8746, #065731);
-      color: var(--text-light);
       transform: rotateY(180deg);
+      color: var(--text-dark);
+
+      /* Gradient Noel sang trọng */
+      background:
+        radial-gradient(circle at top right,
+          rgba(255,240,200,0.55) 0%,
+          rgba(255,240,200,0.15) 32%,
+          rgba(255,240,200,0) 60%
+        ),
+        linear-gradient(135deg,
+          #ffffff 0%,
+          #fff8ea 20%,
+          #ffe9c2 45%,
+          #d4f5d6 65%,
+          #b5e8c2 80%,
+          #5aa97a 100%
+        );
+
+      background-blend-mode: soft-light;
+      border: 3px solid rgba(255,255,255,0.75);
+      box-shadow:
+        0 20px 40px rgba(0,80,40,0.22),
+        0 0 12px rgba(255,255,255,0.45) inset;
     }
 
-    .back-header-tag {
-      font-size: 0.8rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      opacity: 0.9;
+    .back-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
 
     .back-title {
-      margin-top: 14px;
-      font-size: 1.4rem;
+      font-size: 18px;
       font-weight: 800;
-      line-height: 1.2;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
-    .back-tagline {
-      margin-top: 8px;
-      font-size: 0.95rem;
-      color: #e5fff2;
+    .badge-fun {
+      padding: 4px 10px;
+      background: rgba(244,201,93,0.25);
+      border-radius: 999px;
+      font-size: 11px;
     }
 
-    .event-info {
-      margin-top: 18px;
-      padding: 12px;
-      border-radius: 16px;
-      background: rgba(0, 0, 0, 0.25);
-      font-size: 0.9rem;
+    .info-block {
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.5);
+      border-radius: 14px;
+      font-size: 14px;
+      line-height: 1.6;
+      backdrop-filter: blur(3px);
+    }
+
+    .info-row {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
+      gap: 10px;
+      margin-bottom: 10px;
     }
 
-    .event-info p {
+    .info-row span.emoji {
+      width: 20px;
+      font-size: 18px;
+    }
+
+    /* Dress code */
+    .dresscode {
+      margin-top: 12px;
+      font-size: 14px;
+    }
+
+    .dress-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .dress-chip {
       display: flex;
       align-items: center;
       gap: 6px;
+      padding: 5px 12px;
+      background: #ffffff;
+      font-size: 12px;
+      border-radius: 999px;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
     }
 
-    .event-info span.icon {
-      font-size: 1rem;
-    }
-
-    .event-info strong {
-      font-weight: 600;
-    }
-
-    .back-note {
-      margin-top: 16px;
-      font-size: 0.9rem;
-      color: #f5fff9;
-    }
-
-    .back-footer {
-      margin-top: auto;
-      font-size: 0.8rem;
-      opacity: 0.9;
-      display: flex;
-      justify-content: space-between;
-      gap: 10px;
-      align-items: flex-end;
-    }
-
-    .back-footer span {
-      max-width: 9rem;
-      text-align: right;
-    }
-
-    /* TUYẾT RƠI */
-    #snow-layer {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: -1;
-    }
-
-    .snowflake {
-      position: fixed;
-      top: -10px;
+    .dot {
+      width: 10px;
+      height: 10px;
       border-radius: 50%;
-      opacity: 0.9;
-      filter: blur(0.4px);
-      animation-name: fall;
-      animation-timing-function: linear;
-      animation-iteration-count: infinite;
+    }
+    .dot.green { background: var(--green-xmas); }
+    .dot.red { background: var(--red-xmas); }
+    .dot.gold { background: var(--gold-xmas); }
+
+    .back-bottom-note {
+      margin-top: 14px;
+      font-size: 13px;
+      color: #444;
+      line-height: 1.6;
     }
 
-    @keyframes fall {
-      0% {
-        transform: translate3d(0, -10px, 0);
-      }
-      100% {
-        transform: translate3d(0, 110vh, 0);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .wrapper {
-        padding: 20px 12px;
-      }
-      .card-face {
-        border-radius: 20px;
-        padding: 20px 18px;
-      }
-      .front-greeting {
-        font-size: 1.7rem;
-      }
+    .small-tip {
+      margin-top: 6px;
+      font-size: 11px;
+      opacity: 0.7;
     }
   </style>
 </head>
+
 <body>
-  <div id="snow-layer"></div>
+  <!-- Snowfall Canvas -->
+  <canvas id="snowCanvas"></canvas>
 
-  <div class="wrapper">
-    <p class="hint">
-      Tap & drag the card to spin it · front = wish · back = event info 🎄
-    </p>
+  <!-- Card Scene -->
+  <div class="scene">
+    <div id="card3d" class="card-3d">
 
-    <div class="scene" id="scene">
-      <div class="card" id="card3d">
-        <!-- FRONT FACE -->
-        <div class="card-face card-front">
-          <div class="front-top-tag">
-            CHRISTMAS VIBES · 2024
+      <!-- FRONT -->
+      <div class="card-face card-front">
+        <div class="chip-pill">To: My awesome colleagues 🎁</div>
+
+        <div class="front-main-text">
+          <div class="front-greeting">
+            Merry Christmas<br> & Happy New Vibes 🎄
           </div>
 
-          <div class="front-main">
-            <h1 class="front-greeting">
-              <span>Merry</span> <span>Christmas</span> <span>teammate ✨</span>
-            </h1>
-            <p class="front-sub">
-              Wishing you a cozy, laughter–filled holiday, zero bugs in life,
-              and max happiness in every “project” you do next year.
-            </p>
-
-            <div class="front-pill">
-              <span class="front-pill-emoji">🎧</span>
-              <span>Good music, good snacks, good people. That’s the vibe.</span>
-            </div>
-          </div>
-
-          <div class="front-bottom">
-            <div>
-              <div class="from-label">from</div>
-              <div class="from-name">Your Gen Z colleague 😎</div>
-            </div>
-            <div class="mini-note">
-              If you find this card, it means you’re officially on my “cool people” list.
-            </div>
-          </div>
+          <p class="front-sub">
+            Thank you for making the office feel like home this year.  
+            Wishing you cozy nights, good food, and zero bugs in 2025.  
+            – Khanh, your Gen Z teammate ✨
+          </p>
         </div>
 
-        <!-- BACK FACE (FUN VERSION) -->
-        <div class="card-face card-back">
-          <div>
-            <div class="back-header-tag">
-              EVENT DETAILS · SECRET FUN
-            </div>
-            <h2 class="back-title">
-              Office Christmas Night 🌟
-            </h2>
-            <p class="back-tagline">
-              Nothing fancy. Just us, some snacks, random jokes and a lot of
-              “wait, what?!” moments.
-            </p>
-
-            <div class="event-info">
-              <p>
-                <span class="icon">🕕</span>
-                <span><strong>Time:</strong> 6:00 PM · 19/12</span>
-              </p>
-              <p>
-                <span class="icon">📍</span>
-                <span><strong>Place:</strong> Our office — Christmas corner 🎄</span>
-              </p>
-            </div>
-
-            <p class="back-note">
-              Come as you are — but if you add a little red, green or sparkle,
-              the Christmas spirit will secretly level you up +10 cool points.
-            </p>
+        <div class="front-footer">
+          <div class="front-tags">
+            <span class="tag-pill">#teamvibes</span>
+            <span class="tag-pill">#officechristmas</span>
+            <span class="tag-pill">#secretgift</span>
           </div>
 
-          <div class="back-footer">
-            <span>
-              Warning: high chance of inside jokes that only make sense to our team.
-            </span>
-            <span>
-              P.S. If you see someone smiling at their NFC keychain… that’s normal. 😏
-            </span>
-          </div>
+          <div class="tree-icon">🎄</div>
         </div>
       </div>
+
+      <!-- BACK -->
+      <div class="card-face card-back">
+        <div>
+          <div class="back-header">
+            <div class="back-title">Christmas Dinner</div>
+            <span class="badge-fun">Fun Only ✨</span>
+          </div>
+
+          <div class="info-block">
+            <div class="info-row">
+              <span class="emoji">📍</span>
+              <div>
+                Mrsimple Steakhouse<br>
+                62 Trương Quyền, District 3, HCMC
+              </div>
+            </div>
+
+            <div class="info-row">
+              <span class="emoji">🕕</span>
+              <div>
+                6:00 PM – 19/12<br>
+                (Don't be late, the steak won’t wait 😋)
+              </div>
+            </div>
+          </div>
+
+          <div class="dresscode">
+            Dress code: Choose your Christmas color 🎨
+            <div class="dress-chips">
+              <div class="dress-chip">
+                <span class="dot.red"></span> Deep Red
+              </div>
+              <div class="dress-chip">
+                <span class="dot.green"></span> Emerald Green
+              </div>
+              <div class="dress-chip">
+                <span class="dot.gold"></span> Champagne Gold
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="back-bottom-note">
+          Come hungry, come happy, and get ready for too many photos 📸✨  
+          P.S. If you discover your secret gifter… act surprised anyway! 😜
+
+          <div class="small-tip">Tip: drag left ↔ right to rotate the card 360°.</div>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <script>
-    // 3D DRAG ROTATION
-    const card = document.getElementById("card3d");
-    const scene = document.getElementById("scene");
+    /* ---- 3D ROTATION ---- */
+    (function () {
+      const card = document.getElementById("card3d");
+      let isDragging = false;
+      let startX = 0;
+      let startY = 0;
+      let rotX = 6;
+      let rotY = -18;
 
-    let isDragging = false;
-    let startX = 0;
-    let startY = 0;
-    let currentRotX = -10;
-    let currentRotY = 18;
+      function apply() {
+        card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      }
 
-    function updateTransform() {
-      card.style.transform = `rotateX(${currentRotX}deg) rotateY(${currentRotY}deg)`;
-    }
+      card.addEventListener("pointerdown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startY = e.clientY;
+        card.style.transition = "none";
+      });
 
-    updateTransform();
+      window.addEventListener("pointermove", (e) => {
+        if (!isDragging) return;
+        rotY += (e.clientX - startX) * 0.4;
+        rotX -= (e.clientY - startY) * 0.3;
+        rotX = Math.max(-25, Math.min(25, rotX));
+        startX = e.clientX;
+        startY = e.clientY;
+        apply();
+      });
 
-    function onPointerDown(e) {
-      isDragging = true;
-      const point = e.touches ? e.touches[0] : e;
-      startX = point.clientX;
-      startY = point.clientY;
-    }
+      window.addEventListener("pointerup", () => {
+        isDragging = false;
+        card.style.transition = "transform 0.25s ease-out";
+      });
 
-    function onPointerMove(e) {
-      if (!isDragging) return;
-      const point = e.touches ? e.touches[0] : e;
-      const dx = point.clientX - startX;
-      const dy = point.clientY - startY;
+      apply();
+    })();
 
-      currentRotY += dx * 0.25;
-      currentRotX -= dy * 0.25;
+    /* ---- SNOWFALL ---- */
+    (function () {
+      const canvas = document.getElementById("snowCanvas");
+      const ctx = canvas.getContext("2d");
+      let flakes = [];
+      let width, height;
 
-      // giới hạn xoay dọc một chút cho đỡ chóng mặt
-      currentRotX = Math.max(-70, Math.min(70, currentRotX));
+      function resize() {
+        width = innerWidth;
+        height = innerHeight;
+        canvas.width = width;
+        canvas.height = height;
+        createFlakes();
+      }
 
-      startX = point.clientX;
-      startY = point.clientY;
-      updateTransform();
-    }
+      function createFlakes() {
+        const count = Math.floor(width * height / 9000);
+        flakes = [];
+        for (let i = 0; i < count; i++) {
+          flakes.push({
+            x: Math.random() * width,
+            y: Math.random() * height,
+            r: 1 + Math.random() * 2.4,
+            speedY: 0.8 + Math.random() * 1.2,
+            drift: Math.random() * 0.6,
+          });
+        }
+      }
 
-    function onPointerUp() {
-      isDragging = false;
-    }
+      function draw() {
+        ctx.clearRect(0, 0, width, height);
+        ctx.fillStyle = "rgba(255,255,255,0.85)";
+        flakes.forEach(f => {
+          ctx.beginPath();
+          ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+          ctx.fill();
+          f.y += f.speedY;
+          f.x += Math.sin(f.y * 0.015) * f.drift;
+          if (f.y > height) f.y = -4;
+        });
+        requestAnimationFrame(draw);
+      }
 
-    scene.addEventListener("mousedown", onPointerDown);
-    window.addEventListener("mousemove", onPointerMove);
-    window.addEventListener("mouseup", onPointerUp);
-
-    scene.addEventListener("touchstart", onPointerDown, { passive: true });
-    window.addEventListener("touchmove", onPointerMove, { passive: true });
-    window.addEventListener("touchend", onPointerUp);
-
-    // RANDOM SNOW
-    const snowLayer = document.getElementById("snow-layer");
-
-    function createSnowflake() {
-      const flake = document.createElement("div");
-      const size = Math.random() * 4 + 2; // 2–6px
-      const left = Math.random() * 100; // viewport width %
-      const duration = Math.random() * 10 + 8; // 8–18s
-      const delay = Math.random() * 10; // 0–10s
-
-      flake.className = "snowflake";
-      flake.style.width = `${size}px`;
-      flake.style.height = `${size}px`;
-      flake.style.left = `${left}vw`;
-      flake.style.background = "rgba(255, 255, 255, 0.95)";
-      flake.style.animationDuration = `${duration}s`;
-      flake.style.animationDelay = `${delay}s`;
-
-      snowLayer.appendChild(flake);
-    }
-
-    for (let i = 0; i < 80; i++) {
-      createSnowflake();
-    }
+      window.addEventListener("resize", resize);
+      resize();
+      draw();
+    })();
   </script>
+
 </body>
 </html>
