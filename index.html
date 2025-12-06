@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Christmas Card</title>
+  <title>NFC Christmas AR Card</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     :root {
-      --bg-cloud-dancer: #f0eee9;   /* Cloud Dancer bảng Pantone */
+      --bg-cloud-dancer: #f0eee9;   /* Cloud Dancer */
       --red-xmas: #e63946;
       --green-xmas: #0b9b63;
       --gold-xmas: #f4c95d;
@@ -142,7 +142,6 @@
       transform: rotateY(180deg);
       color: var(--text-dark);
 
-      /* Gradient Noel sang trọng */
       background:
         radial-gradient(circle at top right,
           rgba(255,240,200,0.55) 0%,
@@ -224,11 +223,15 @@
       align-items: center;
       gap: 6px;
       padding: 5px 12px;
-      background: #ffffff;
       font-size: 12px;
       border-radius: 999px;
+      background: #ffffffdd;
       box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
     }
+
+    .dress-chip.red   { background: rgba(230,57,70,0.12);  border-color: var(--red-xmas); }
+    .dress-chip.green { background: rgba(11,155,99,0.12);  border-color: var(--green-xmas); }
+    .dress-chip.gold  { background: rgba(244,201,93,0.18); border-color: var(--gold-xmas); }
 
     .dot {
       width: 10px;
@@ -236,8 +239,8 @@
       border-radius: 50%;
     }
     .dot.green { background: var(--green-xmas); }
-    .dot.red { background: var(--red-xmas); }
-    .dot.gold { background: var(--gold-xmas); }
+    .dot.red   { background: var(--red-xmas); }
+    .dot.gold  { background: var(--gold-xmas); }
 
     .back-bottom-note {
       margin-top: 14px;
@@ -272,8 +275,8 @@
           </div>
 
           <p class="front-sub">
-            Thank you for making the office feel like home this year.  
-            Wishing you cozy nights, good food, and zero bugs in 2025.  
+            Thank you for making the office feel like home this year.<br>
+            Wishing you cozy nights, good food, and zero bugs in 2025.<br>
             – Khanh, your Gen Z teammate ✨
           </p>
         </div>
@@ -318,14 +321,14 @@
           <div class="dresscode">
             Dress code: Choose your Christmas color 🎨
             <div class="dress-chips">
-              <div class="dress-chip">
-                <span class="dot.red"></span> Deep Red
+              <div class="dress-chip red">
+                <span class="dot red"></span> Deep Red
               </div>
-              <div class="dress-chip">
-                <span class="dot.green"></span> Emerald Green
+              <div class="dress-chip green">
+                <span class="dot green"></span> Emerald Green
               </div>
-              <div class="dress-chip">
-                <span class="dot.gold"></span> Champagne Gold
+              <div class="dress-chip gold">
+                <span class="dot gold"></span> Champagne Gold
               </div>
             </div>
           </div>
