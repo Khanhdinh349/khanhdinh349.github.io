@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>NFC Christmas AR Card</title>
+  <title>Christmas Card</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <style>
     :root {
-      --bg-cloud-dancer: #f0eee9;   /* Cloud Dancer */
+      --bg-cloud-dancer: #f0eee9;
       --red-xmas: #e63946;
       --green-xmas: #0b9b63;
       --gold-xmas: #f4c95d;
@@ -50,10 +50,9 @@
     .card-3d {
       width: 100%;
       height: 100%;
-      position: relative;
       transform-style: preserve-3d;
       cursor: grab;
-      transition: transform 0.25s ease-out;
+      transition: transform 0.25s ease;
     }
 
     .card-3d:active { cursor: grabbing; }
@@ -70,7 +69,7 @@
       box-shadow: 0 22px 40px rgba(0,0,0,0.22);
     }
 
-    /* 🌟 FRONT — Christmas Red */
+    /* 🌟 FRONT */
     .card-front {
       background: linear-gradient(
         135deg,
@@ -80,7 +79,7 @@
         #d62828 70%,
         #8b0000 100%
       );
-      color: #ffffff;
+      color: #fff;
     }
 
     .chip-pill {
@@ -94,9 +93,8 @@
       text-transform: uppercase;
     }
 
-    .front-main-text { margin-top: 16px; }
-
     .front-greeting {
+      margin-top: 16px;
       font-size: 26px;
       font-weight: 800;
       line-height: 1.2;
@@ -137,7 +135,7 @@
       filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
     }
 
-    /* 🎄 BACK — Christmas Dinner Theme */
+    /* 🎄 BACK */
     .card-back {
       transform: rotateY(180deg);
       color: var(--text-dark);
@@ -156,7 +154,6 @@
           #b5e8c2 80%,
           #5aa97a 100%
         );
-
       background-blend-mode: soft-light;
       border: 3px solid rgba(255,255,255,0.75);
       box-shadow:
@@ -164,25 +161,8 @@
         0 0 12px rgba(255,255,255,0.45) inset;
     }
 
-    .back-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .back-title {
-      font-size: 18px;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .badge-fun {
-      padding: 4px 10px;
-      background: rgba(244,201,93,0.25);
-      border-radius: 999px;
-      font-size: 11px;
-    }
+    .back-title { font-size: 18px; font-weight: 800; text-transform: uppercase; }
+    .badge-fun { padding: 4px 10px; font-size: 11px; border-radius: 999px; background: rgba(244,201,93,0.25); }
 
     .info-block {
       margin-top: 14px;
@@ -194,53 +174,16 @@
       backdrop-filter: blur(3px);
     }
 
-    .info-row {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
+    .info-row { display: flex; gap: 10px; margin-bottom: 10px; }
+    .emoji { width: 20px; font-size: 18px; }
 
-    .info-row span.emoji {
-      width: 20px;
-      font-size: 18px;
-    }
+    .dress-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .dress-chip { padding: 5px 12px; border-radius: 999px; display: flex; gap: 6px; align-items: center; background: #ffffffdd; }
 
-    /* Dress code */
-    .dresscode {
-      margin-top: 12px;
-      font-size: 14px;
-    }
-
-    .dress-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      margin-top: 8px;
-    }
-
-    .dress-chip {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      padding: 5px 12px;
-      font-size: 12px;
-      border-radius: 999px;
-      background: #ffffffdd;
-      box-shadow: 0 0 0 1px rgba(0,0,0,0.08);
-    }
-
-    .dress-chip.red   { background: rgba(230,57,70,0.12);  border-color: var(--red-xmas); }
-    .dress-chip.green { background: rgba(11,155,99,0.12);  border-color: var(--green-xmas); }
-    .dress-chip.gold  { background: rgba(244,201,93,0.18); border-color: var(--gold-xmas); }
-
-    .dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-    }
-    .dot.green { background: var(--green-xmas); }
-    .dot.red   { background: var(--red-xmas); }
-    .dot.gold  { background: var(--gold-xmas); }
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .red { background: var(--red-xmas); }
+    .green { background: var(--green-xmas); }
+    .gold { background: var(--gold-xmas); }
 
     .back-bottom-note {
       margin-top: 14px;
@@ -248,20 +191,12 @@
       color: #444;
       line-height: 1.6;
     }
-
-    .small-tip {
-      margin-top: 6px;
-      font-size: 11px;
-      opacity: 0.7;
-    }
   </style>
 </head>
 
 <body>
-  <!-- Snowfall Canvas -->
   <canvas id="snowCanvas"></canvas>
 
-  <!-- Card Scene -->
   <div class="scene">
     <div id="card3d" class="card-3d">
 
@@ -269,7 +204,7 @@
       <div class="card-face card-front">
         <div class="chip-pill">To: My awesome colleagues 🎁</div>
 
-        <div class="front-main-text">
+        <div>
           <div class="front-greeting">
             Merry Christmas<br> & Happy New Vibes 🎄
           </div>
@@ -287,7 +222,6 @@
             <span class="tag-pill">#cutepeople</span>
             <span class="tag-pill">#secretgift</span>
           </div>
-
           <div class="tree-icon">🎄</div>
         </div>
       </div>
@@ -295,7 +229,7 @@
       <!-- BACK -->
       <div class="card-face card-back">
         <div>
-          <div class="back-header">
+          <div style="display:flex;justify-content:space-between;align-items:center;">
             <div class="back-title">Christmas Dinner</div>
             <span class="badge-fun">Fun Only ✨</span>
           </div>
@@ -318,18 +252,12 @@
             </div>
           </div>
 
-          <div class="dresscode">
-            Dress code: Choose your Christmas color 🎨
+          <div style="margin-top:12px;">
+            Dress code: Christmas Colors 🎨
             <div class="dress-chips">
-              <div class="dress-chip red">
-                <span class="dot red"></span> Deep Red
-              </div>
-              <div class="dress-chip green">
-                <span class="dot green"></span> Emerald Green
-              </div>
-              <div class="dress-chip gold">
-                <span class="dot gold"></span> Champagne Gold
-              </div>
+              <div class="dress-chip"><span class="dot red"></span> Deep Red</div>
+              <div class="dress-chip"><span class="dot green"></span> Emerald Green</div>
+              <div class="dress-chip"><span class="dot gold"></span> Champagne Gold</div>
             </div>
           </div>
         </div>
@@ -337,8 +265,6 @@
         <div class="back-bottom-note">
           Come hungry, come happy, and get ready for too many photos 📸✨  
           P.S. If you discover your secret gifter… act surprised anyway! 😜
-
-          <div class="small-tip">Tip: drag left ↔ right to rotate the card 360°.</div>
         </div>
       </div>
 
@@ -346,39 +272,63 @@
   </div>
 
   <script>
-    /* ---- 3D ROTATION ---- */
+    /* ---- 3D ROTATION + AUTO ROTATE ---- */
     (function () {
       const card = document.getElementById("card3d");
+
       let isDragging = false;
       let startX = 0;
       let startY = 0;
+
       let rotX = 6;
       let rotY = -18;
 
+      let autoRotate = true;
+      let autoSpeed = 0.15;
+      let autoTimer = null;
+
       function apply() {
         card.style.transform = `rotateX(${rotX}deg) rotateY(${rotY}deg)`;
+      }
+
+      function autoRotateLoop() {
+        if (autoRotate && !isDragging) {
+          rotY += autoSpeed;
+          apply();
+        }
+        requestAnimationFrame(autoRotateLoop);
+      }
+      autoRotateLoop();
+
+      function pauseAutoRotate() {
+        autoRotate = false;
+        clearTimeout(autoTimer);
+        autoTimer = setTimeout(() => autoRotate = true, 2500);
       }
 
       card.addEventListener("pointerdown", (e) => {
         isDragging = true;
         startX = e.clientX;
         startY = e.clientY;
-        card.style.transition = "none";
+        pauseAutoRotate();
       });
 
       window.addEventListener("pointermove", (e) => {
         if (!isDragging) return;
-        rotY += (e.clientX - startX) * 0.4;
-        rotX -= (e.clientY - startY) * 0.3;
+
+        rotY += (e.clientX - startX) * 0.35;
+        rotX -= (e.clientY - startY) * 0.25;
         rotX = Math.max(-25, Math.min(25, rotX));
+
         startX = e.clientX;
         startY = e.clientY;
+
         apply();
       });
 
       window.addEventListener("pointerup", () => {
         isDragging = false;
-        card.style.transition = "transform 0.25s ease-out";
+        pauseAutoRotate();
       });
 
       apply();
@@ -406,24 +356,32 @@
           flakes.push({
             x: Math.random() * width,
             y: Math.random() * height,
-            r: 1 + Math.random() * 2.4,
-            speedY: 0.8 + Math.random() * 1.2,
-            drift: Math.random() * 0.6,
+            r: 3 + Math.random() * 4,
+            speedY: 0.6 + Math.random() * 1.2,
+            drift: Math.random() * 1.2,
+            alpha: 0.6 + Math.random() * 0.4,
           });
         }
       }
 
       function draw() {
         ctx.clearRect(0, 0, width, height);
-        ctx.fillStyle = "rgba(255,255,255,0.85)";
+
         flakes.forEach(f => {
           ctx.beginPath();
+          ctx.fillStyle = `rgba(255,255,255,${f.alpha})`;
           ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
           ctx.fill();
+
           f.y += f.speedY;
-          f.x += Math.sin(f.y * 0.015) * f.drift;
-          if (f.y > height) f.y = -4;
+          f.x += Math.sin(f.y * 0.01) * f.drift;
+
+          if (f.y > height) {
+            f.y = -10;
+            f.x = Math.random() * width;
+          }
         });
+
         requestAnimationFrame(draw);
       }
 
@@ -432,6 +390,5 @@
       draw();
     })();
   </script>
-
 </body>
 </html>
