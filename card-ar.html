@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Christmas Card – AR Version</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: system-ui, sans-serif;
+      height: 100vh;
+      overflow: hidden;
+      background: #000;
+      color: #fff;
+    }
+
+    /* Camera background */
+    #cameraWrap {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    video#camera {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* Card overlay */
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .scene {
+      position: relative;
+      width: min(320px, 85vw);
+      height: min(520px, 78vh);
+      perspective: 1200px;
+      pointer-events: auto;
+    }
+
+    .card-3d {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.4s ease-out;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0%   { transform: translateY(0) rotateX(8deg) rotateY(-18deg); }
+      50%  { transform: translateY(-10px) rotateX(10deg) rotateY(-16deg); }
+      100% { transform: translateY(0) rotateX(8deg) rotateY(-18deg); }
+    }
+
+    .card-face {
+      position: absolute;
+      inset: 0;
+      border-radius: 22px;
+      backface-visibility: hidden;
+      padding: 24px 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 22px 40px rgba(0,0,0,0.4);
+    }
+
+    /* reuse màu từ trang chính */
+    :root {
+      --red-xmas: #e63946;
+      --green-xmas: #0b9b63;
+      --gold-xmas: #f4c95d;
+      --text-dark: #222222;
+    }
+
+    .card-front {
+      background: linear-gradient(
+        135deg,
+        #ffe4e6 0%,
+        #ffb3b3 20%,
+        #ff6666 45%,
+        #d62828 70%,
+        #8b0000 100%
+      );
+      color: #fff;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+      color: var(--text-dark);
+      background:
+        radial-gradient(circle at top right,
+          rgba(255,240,200,0.55) 0%,
+          rgba(255,240,200,0.15) 32%,
+          rgba(255,240,200,0) 60%
+        ),
+        linear-gradient(135deg,
+          #ffffff 0%,
+          #fff8ea 20%,
+          #ffe9c2 45%,
+          #d4f5d6 65%,
+          #b5e8c2 80%,
+          #5aa97a 100%
+        );
+      background-blend-mode: soft-light;
+      border: 3px solid rgba(255,255,255,0.75);
+      box-shadow:
+        0 20px 40px rgba(0,80,40,0.22),
+        0 0 12px rgba(255,255,255,0.45) inset;
+    }
+
+    .chip-pill {
+      align-self: flex-start;
+      padding: 6px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.22);
+      backdrop-filter: blur(4px);
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .front-greeting {
+      margin-top: 16px;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.25);
+    }
+
+    .front-sub {
+      margin-top: 10px;
+      font-size: 13px;
+      opacity: 0.96;
+      line-height: 1.55;
+    }
+
+    .front-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-top: 16px;
+      font-size: 12px;
+    }
+
+    .front-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      font-size: 11px;
+    }
+
+    .tag-pill {
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+      backdrop-filter: blur(4px);
+    }
+
+    .tree-icon {
+      font-size: 32px;
+      filter: drop-shadow(0 4px 6px rgba(0,0,0,0.25));
+    }
+
+    .back-title { font-size: 18px; font-weight: 800; text-transform: uppercase; }
+    .badge-fun { padding: 4px 10px; font-size: 11px; border-radius: 999px; background: rgba(244,201,93,0.25); }
+
+    .info-block {
+      margin-top: 14px;
+      padding: 14px 16px;
+      background: rgba(255,255,255,0.7);
+      border-radius: 14px;
+      font-size: 13px;
+      line-height: 1.6;
+      backdrop-filter: blur(4px);
+    }
+
+    .info-row { display: flex; gap: 10px; margin-bottom: 10px; }
+    .emoji { width: 20px; font-size: 18px; }
+
+    .dress-chips { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px; }
+    .dress-chip { padding: 5px 12px; border-radius: 999px; display: flex; gap: 6px; align-items: center; background: #ffffffdd; }
+
+    .dot { width: 10px; height: 10px; border-radius: 50%; }
+    .red { background: var(--red-xmas); }
+    .green { background: var(--green-xmas); }
+    .gold { background: var(--gold-xmas); }
+
+    .back-bottom-note {
+      margin-top: 14px;
+      font-size: 12px;
+      color: #444;
+      line-height: 1.6;
+    }
+
+    /* top bar */
+    .top-bar {
+      position: fixed;
+      top: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      padding: 6px 14px;
+      border-radius: 999px;
+      background: rgba(0,0,0,0.4);
+      font-size: 12px;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .back-btn {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 2;
+      padding: 6px 10px;
+      font-size: 12px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(0,0,0,0.6);
+      color: #fff;
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="cameraWrap">
+    <video id="camera" autoplay playsinline muted></video>
+  </div>
+
+  <button class="back-btn" onclick="window.location.href='card.html'">
+    ← Back
+  </button>
+
+  <div class="top-bar">
+    📱 Move your phone – card is floating in AR style
+  </div>
+
+  <div class="overlay">
+    <div class="scene">
+      <div class="card-3d" id="cardAr">
+
+        <!-- FRONT (giống trang chính) -->
+        <div class="card-face card-front">
+          <div class="chip-pill">To: My awesome colleagues 🎁</div>
+
+          <div>
+            <div class="front-greeting">
+              Merry Christmas<br> & Happy New Vibes 🎄
+            </div>
+
+            <p class="front-sub">
+              Thank you for making the office feel like home this year.<br>
+              Wishing you cozy nights, good food, and zero bugs in 2026.<br>
+              – Khanh, your Gen Z teammate ✨
+            </p>
+          </div>
+
+          <div class="front-footer">
+            <div class="front-tags">
+              <span class="tag-pill">#teamS&M</span>
+              <span class="tag-pill">#cutepeople</span>
+              <span class="tag-pill">#secretgift</span>
+            </div>
+            <div class="tree-icon">🎄</div>
+          </div>
+        </div>
+
+        <!-- BACK -->
+        <div class="card-face card-back">
+          <div>
+            <div style="display:flex;justify-content:space-between;align-items:center;">
+              <div class="back-title">Christmas Dinner</div>
+              <span class="badge-fun">Fun Only ✨</span>
+            </div>
+
+            <div class="info-block">
+              <div class="info-row">
+                <span class="emoji">📍</span>
+                <div>
+                  Mrsimple Steakhouse<br>
+                  62 Trương Quyền, District 3, HCMC
+                </div>
+              </div>
+
+              <div class="info-row">
+                <span class="emoji">🕕</span>
+                <div>
+                  6:00 PM – 19/12<br>
+                  (Don't be late, the steak won’t wait 😋)
+                </div>
+              </div>
+            </div>
+
+            <div style="margin-top:12px;">
+              Dress code: Christmas Colors 🎨
+              <div class="dress-chips">
+                <div class="dress-chip"><span class="dot red"></span> Deep Red</div>
+                <div class="dress-chip"><span class="dot green"></span> Emerald Green</div>
+                <div class="dress-chip"><span class="dot gold"></span> Champagne Gold</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="back-bottom-note">
+            Come hungry, come happy, and get ready for too many photos 📸✨  
+            P.S. If you discover your secret gifter… act surprised anyway! 😜
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // bật camera (ưu tiên camera sau)
+    (function () {
+      const video = document.getElementById("camera");
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        alert("Your browser does not support camera access.");
+        return;
+      }
+      navigator.mediaDevices.getUserMedia({
+        video: { facingMode: { ideal: "environment" } },
+        audio: false
+      }).then(stream => {
+        video.srcObject = stream;
+      }).catch(err => {
+        console.error(err);
+        alert("Cannot access camera. Please check permissions / HTTPS.");
+      });
+    })();
+
+    // 3D xoay nhẹ theo tilt device / pointer
+    (function () {
+      const card = document.getElementById("cardAr");
+      let baseX = 8;
+      let baseY = -18;
+
+      // tilt theo con trỏ (fallback cho desktop)
+      window.addEventListener("pointermove", (e) => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        const rx = baseX + (e.clientY - h/2) * -0.02;
+        const ry = baseY + (e.clientX - w/2) * 0.03;
+        card.style.transform = `translateY(0) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+
+      // nếu có orientation, cho nó điều khiển luôn
+      window.addEventListener("deviceorientation", (e) => {
+        if (e.beta === null || e.gamma === null) return;
+        const rx = baseX + (e.beta - 30) * 0.3;
+        const ry = baseY + e.gamma * 0.4;
+        card.style.transform = `translateY(0) rotateX(${rx}deg) rotateY(${ry}deg)`;
+      });
+    })();
+  </script>
+</body>
+</html>
