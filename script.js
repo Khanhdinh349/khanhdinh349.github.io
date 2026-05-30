@@ -1,4 +1,4 @@
-// Tab Switching Management Function
+// Hàm quản lý chuyển đổi giữa các ngày (Tabs)
 function openDay(evt, dayName) {
     var i, tabcontent, tablinks;
     
@@ -16,12 +16,13 @@ function openDay(evt, dayName) {
     evt.currentTarget.classList.add("active");
 }
 
-// Render loop from home1.jpg to home45.jpg (Excluding home4.jpg)
+// Vòng lặp tự động render danh sách hình ảnh từ home1.jpg đến home45.jpg
 document.addEventListener("DOMContentLoaded", function() {
     const galleryContainer = document.getElementById("dynamic-gallery");
     
+    // Chạy chính xác từ ảnh 1 đến ảnh 45
     for (let i = 1; i <= 45; i++) {
-        // Bỏ qua không xử lý và không render file ảnh số 4 (home4.jpg)
+        // Loại trừ không hiển thị file ảnh số 4 (home4.jpg) theo yêu cầu
         if (i === 4) {
             continue;
         }
@@ -30,10 +31,11 @@ document.addEventListener("DOMContentLoaded", function() {
         card.className = "gallery-card";
         
         const img = document.createElement("img");
-        img.src = `image/home${i}.jpg`;
+        // SỬA TẠI ĐÂY: Chuyển hoàn toàn thành 'image/' viết thường để khớp với thư mục trên Git
+        img.src = `image/home${i}.jpg`; 
         img.alt = `Không gian Homestay số ${i}`;
         
-        // Cơ chế dự phòng (fallback) nếu lỗi đường dẫn tệp
+        // Cơ chế giữ an toàn: Nếu lỡ mất file nào trên Git, nó sẽ lấy ảnh thung lũng thay thế để không bị trống trang
         img.onerror = function() {
             this.src = `https://images.unsplash.com/photo-1507089947368-19c1da9775ae?auto=format&fit=crop&w=400&q=80`;
         };
