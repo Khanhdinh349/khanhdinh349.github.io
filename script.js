@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function() {
         card.className = "gallery-card";
         
         const img = document.createElement("img");
-        img.src = `Image/home${i}.jpg`;
+        img.src = `image/home${i}.jpg`;
         img.alt = `Không gian Homestay số ${i}`;
         
         // Cơ chế dự phòng (fallback) nếu lỗi đường dẫn tệp
