@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Da Lat Retreat - June 2026</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <header class="hero-section">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <!-- <p class="hero-subtitle">Hành trình nghỉ dưỡng của tình đồng nghiệp</p> -->
+            <h1 class="hero-title">DA LAT RETREAT</h1>
+            <p class="hero-date">12.06 - 14.06</p>
+            <a href="#itinerary" class="btn-chill">Trải Nghiệm Ngay</a>
+        </div>
+    </header>
+
+    <section class="overview-section container">
+        <div class="stat-card">
+            <i class="fas fa-users"></i>
+            <h3>Thành Viên</h3>
+            <p class="stat-val">7 Người</p>
+            <span class="stat-desc">Đang kêu gọi :((((</span>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-wallet"></i>
+            <h3>Chi Phí Tạm Tính</h3>
+            <p class="stat-val">~2.800.000đ</p>
+            <span class="stat-desc">Mỗi người (Đã gồm dự phòng)</span>
+        </div>
+        <div class="stat-card">
+            <i class="fas fa-cloud-sun"></i>
+            <h3>Thời Tiết Dự Báo</h3>
+            <p id="weather-summary" class="stat-val">15°C - 23°C</p>
+            <span class="stat-desc">Mát mẻ, có sương mù sớm</span>
+        </div>
+    </section>
+
+    <section id="itinerary" class="itinerary-section container">
+        <h2 class="section-title">Lịch Trình Chi Tiết</h2>
+        
+        <div class="day-tabs">
+            <button class="tab-btn active" onclick="openDay(event, 'day1')">Ngày 1 (12/06)</button>
+            <button class="tab-btn" onclick="openDay(event, 'day2')">Ngày 2 (13/06)</button>
+            <button class="tab-btn" onclick="openDay(event, 'day3')">Ngày 3 (14/06)</button>
+        </div>
+
+        <div id="day1" class="tab-content active">
+            <h3 class="day-title">Ngày 1: Cao Tốc Phan Thiết - Đèo Đại Ninh - Lửa Trại BBQ</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">05:30 - 11:30</div>
+                    <div class="activity">
+                        <h4>Khởi hành bằng ô tô cá nhân</h4>
+                        <p>Cả team xuất phát sớm, thong thả ôm tuyến **Cao tốc Long Thành - Dầu Giây - Phan Thiết**. Sau đó, xe chuyển hướng chinh phục **Đèo Đại Ninh** hoang sơ, ngắm nhìn núi non hùng vĩ ven đường lên xứ lạnh.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">12:00</div>
+                    <div class="activity">
+                        <h4>Bữa trưa ấm cúng với Lẩu Gà Lá É</h4>
+                        <p>Dừng chân thưởng thức món lẩu gà đặc sản nức tiếng, sưởi ấm ngay cơ thể sau chặng đường dài cầm lái.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">14:00</div>
+                    <div class="activity">
+                        <h4>Check-in Homestay & Nghỉ ngơi</h4>
+                        <p>Di chuyển về homestay nguyên căn yên bình. Mọi người nhận phòng ổn định hành lý, ngắm cảnh đồi thông bao quanh và nghỉ ngơi sau hành trình vượt đèo.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">18:30</div>
+                    <div class="activity">
+                        <h4>Bữa Tiệc BBQ Đậm Chất Đồng Nghiệp</h4>
+                        <p>Đốt lửa sưởi ấm, nướng thịt nướng bản gang thơm ngậy ngay tại sân vườn homestay. Cùng khui vang đỏ, uống trà ấm và hát ca giữa trời sương se lạnh.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day2" class="tab-content">
+            <h3 class="day-title">Ngày 2: Săn Sương Sớm & Cà Phê Thung Lũng Đèn</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">07:30</div>
+                    <div class="activity">
+                        <h4>Chào ngày mới với Bánh mì xíu mại</h4>
+                        <p>Tận hưởng bữa sáng ấm lòng với những bát xíu mại ngập hành cay thơm lừng kèm chiếc bánh mì vừa nướng giòn.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">09:30</div>
+                    <div class="activity">
+                        <h4>Tham quan nhẹ nhàng dạo chơi nông trại</h4>
+                        <p>Ghé nông trại cừu Chika Farm mộc mạc hoặc Kombi Land. Cả team thả hồn theo lối đi xanh mướt chụp ảnh lưu niệm cực chill.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">15:00</div>
+                    <div class="activity">
+                        <h4>Cà phê Túi Mơ To thơ mộng</h4>
+                        <p>Chọn một góc thật chill dưới giàn cúc họa mi trắng muốt, nhìn xuống thung lũng Đà Lạt đợi màn đêm lấp lánh ánh đèn rực rỡ.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">18:30</div>
+                    <div class="activity">
+                        <h4>Bữa tối Lẩu Cá Tầm Tây Nguyên nóng hổi</h4>
+                        <p>Quây quần bên nồi lẩu cá tầm nghi ngút khói, thịt cá sần sật ngọt lịm hòa cùng nước dùng chua cay đậm đà, đảm bảo vừa miệng cho tất cả mọi người mà không lo ngại dị ứng hay kén ăn. Buổi tối tự do đi dạo hồ Xuân Hương uống sữa đậu nành nóng.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="day3" class="tab-content">
+            <h3 class="day-title">Ngày 3: Khép Lại Chuyến Đi Bình Yên</h3>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="time">08:30</div>
+                    <div class="activity">
+                        <h4>Cà phê sớm thong thả</h4>
+                        <p>Không vội vã, tự tay pha những ly cà phê sữa đá, ngắm sương sớm từ ban công phòng nghỉ và trò chuyện thư thả.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">11:30</div>
+                    <div class="activity">
+                        <h4>Check-out homestay & Ăn trưa Nem nướng</h4>
+                        <p>Dọn đồ trả căn nhà nhỏ xinh, cùng nhau đi ăn Nem nướng Bà Hùng nóng giòn, nước tương chấm đặc sánh ngon tuyệt hảo.</p>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="time">14:00</div>
+                    <div class="activity">
+                        <h4>Ghé mua đặc sản & Trở về thành phố</h4>
+                        <p>Sưu tầm mứt sấy, hồng dâu tây làm quà kỷ niệm ngọt ngào tại L'angfarm trước khi lên ô tô khởi hành đổ đèo về lại thành phố.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="food-section container">
+        <h2 class="section-title">Bản Đồ Ẩm Thực Đà Lạt</h2>
+        <div class="food-grid">
+            <div class="food-card">
+                <div class="food-card-img">
+                    <img src="https://kalite.vn/wp-content/uploads/2024/12/402598452_7004207222975681_6403554273470642148_n-2.jpg" alt="Lẩu gà lá é Đà Lạt">
+                </div>
+                <div class="food-card-body">
+                    <h3>Lẩu Gà Lá É Tao Ngộ</h3>
+                    <div class="food-address"><i class="fas fa-map-marker-alt"></i> Số 5 Đường 3 Tháng 4, Đà Lạt</div>
+                    <p>Hương vị gà ta dai giòn quyện với vị cay nồng đặc trưng của ớt xiêm xanh và vị thơm ngái ấm áp của lá é tươi, tạo nên món lẩu ấm lòng ngày sương gió.</p>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <div class="food-card-img">
+                    <img src="https://mia.vn/media/uploads/blog-du-lich/banh-mi-xiu-mai-da-lat-doc-dao-am-thuc-xu-ngan-hoa-08-1653553353.png" alt="Bánh mì xíu mại">
+                </div>
+                <div class="food-card-body">
+                    <h3>Bánh Mì Xíu Mại Hoàng Diệu</h3>
+                    <div class="food-address"><i class="fas fa-map-marker-alt"></i> 26 Hoàng Diệu, Đà Lạt</div>
+                    <p>Viên xíu mại to mẩy ngập trong chén nước lèo đậm đà nhiều hành hoa, chấm kèm miếng bánh mì giòn xốp nóng hổi thức dậy mọi giác quan vào buổi sớm lạnh.</p>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <div class="food-card-img">
+                    <img src="https://danangbest.com/upload_content/lau-ca-tam-ngu-son-4.jpg" alt="Lẩu cá tầm Đà Lạt">
+                </div>
+                <div class="food-card-body">
+                    <h3>Lẩu Cá Tầm Ngư Sơn</h3>
+                    <div class="food-address"><i class="fas fa-map-marker-alt"></i> 33/15/3 Hùng Vương, Phường 9, Đà Lạt</div>
+                    <p>Đặc sản cá tầm nước lạnh nuôi tại vùng cao với thớ thịt trắng mịn, sụn cá giòn sần sật nhúng trong nước lẩu măng chua cay nồng ấm, món ăn thay thế hoàn hảo được yêu thích bậc nhất vùng cao.</p>
+                </div>
+            </div>
+
+            <div class="food-card">
+                <div class="food-card-img">
+                    <img src="https://exotrails.com/explore/wp-content/uploads/2025/01/Nem-nuong-Ba-Hung.webp" alt="Nem nướng Bà Hùng">
+                </div>
+                <div class="food-card-body">
+                    <h3>Nem Nướng Bà Hùng</h3>
+                    <div class="food-address"><i class="fas fa-map-marker-alt"></i> 328 Phan Đình Phùng, Đà Lạt</div>
+                    <p>Sự kết hợp tinh tế giữa nem nướng thơm nức mũi trên than củi nóng, bánh tráng chiên giòn, xà lách tươi và bát tương chấm tương đậu sánh mịn ngậy béo cực cuốn hút.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="memories-section container">
+        <h2 class="section-title">Không Gian Thư Giãn Homestay</h2>
+        <div class="gallery-grid" id="dynamic-gallery">
+            </div>
+    </section>
+
+    <section class="budget-section container">
+        <h2 class="section-title">Bảng Chi Phí Dự Kiến (7 Người)</h2>
+        <div class="budget-table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Hạng Mục Chi Phí</th>
+                        <th>Chi Tiết Phân Chia</th>
+                        <th>Tổng Chi Phí (VND)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Tiền phòng Homestay</td>
+                        <td>2.800.000đ × 2 đêm</td>
+                        <td>5.600.000đ</td>
+                    </tr>
+                    <tr>
+                        <td>Di chuyển Ô tô cá nhân</td>
+                        <td>Xăng xe (~1.500.000đ) + Phí cầu đường cao tốc (~500.000đ)</td>
+                        <td>2.000.000đ</td>
+                    </tr>
+                    <tr>
+                        <td>Ăn uống các bữa chính & BBQ</td>
+                        <td>Ước tính ăn chơi khoảng 800.000đ/người</td>
+                        <td>5.600.000đ</td>
+                    </tr>
+                    <tr>
+                        <td>Quán cà phê & Vé tham quan</td>
+                        <td>Ước tính khoảng 400.000đ/người</td>
+                        <td>2.800.000đ</td>
+                    </tr>
+                    <tr>
+                        <td>Chi phí phát sinh lặt vặt</td>
+                        <td>Quỹ dự phòng phát sinh 500.000đ × 7 người</td>
+                        <td>3.500.000đ</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>TỔNG CHI PHÍ DỰ KIẾN CẢ ĐOÀN</td>
+                        <td>Trọn gói (Cá nhân + Dự phòng)</td>
+                        <td>19.500.000đ</td>
+                    </tr>
+                    <tr class="per-person-row">
+                        <td>TRUNG BÌNH MỖI NGƯỜI ĐI</td>
+                        <td>Tổng / 7 thành viên</td>
+                        <td>2.785.714đ</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <footer>
+        <p>Created with 🤍 for Da Lat Retreat Team | 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
