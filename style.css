@@ -27,7 +27,7 @@ body {
     padding: 60px 20px;
 }
 
-h1, h2, h3, h4, .hero-subtitle {
+h1, h2, h3, h4 {
     font-family: 'Comfortaa', cursive;
     font-weight: 700;
 }
@@ -50,32 +50,26 @@ h1, h2, h3, h4, .hero-subtitle {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(44, 62, 80, 0.45);
+    background: rgba(0, 0, 0, 0.45);
 }
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 1;
 }
 
 .hero-title {
-    font-size: 3.5rem;
-    margin: 15px 0;
+    font-size: 3.8rem;
     letter-spacing: 2px;
-    text-shadow: 0 4px 10px rgba(0,0,0,0.2);
-}
-
-.hero-subtitle {
-    font-size: 1.2rem;
-    text-transform: uppercase;
-    letter-spacing: 4px;
-    color: #ecf0f1;
+    margin-bottom: 10px;
+    text-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
 .hero-date {
-    font-size: 1.5rem;
-    margin-bottom: 30px;
+    font-size: 1.3rem;
     font-weight: 300;
+    margin-bottom: 30px;
+    letter-spacing: 4px;
 }
 
 .btn-chill {
@@ -85,35 +79,34 @@ h1, h2, h3, h4, .hero-subtitle {
     color: var(--white);
     text-decoration: none;
     border-radius: 30px;
-    font-weight: 600;
+    font-weight: 500;
     transition: all 0.3s ease;
     box-shadow: 0 4px 15px rgba(211, 84, 0, 0.4);
 }
 
 .btn-chill:hover {
-    background-color: #b33921;
     transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 84, 0, 0.6);
 }
 
-/* 3. FLOATING CARDS OVERVIEW */
+/* 3. OVERVIEW STATISTICS */
 .overview-section {
     display: flex;
     justify-content: space-between;
     gap: 20px;
-    margin-top: -60px;
+    margin-top: -40px;
     position: relative;
-    z-index: 10;
+    z-index: 2;
     padding-top: 0;
 }
 
 .stat-card {
     background: var(--white);
     flex: 1;
-    padding: 25px;
+    padding: 30px;
     border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
     text-align: center;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.06);
-    border: 1px solid rgba(0,0,0,0.02);
     transition: transform 0.3s ease;
 }
 
@@ -123,71 +116,71 @@ h1, h2, h3, h4, .hero-subtitle {
 
 .stat-card i {
     font-size: 2rem;
-    color: #27ae60;
-    margin-bottom: 12px;
+    color: var(--accent-orange);
+    margin-bottom: 15px;
 }
 
 .stat-card h3 {
     font-size: 0.9rem;
     color: var(--text-muted);
-    margin-bottom: 8px;
     text-transform: uppercase;
+    margin-bottom: 8px;
     letter-spacing: 1px;
 }
 
 .stat-val {
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-weight: 700;
     color: var(--text-dark);
+    margin-bottom: 5px;
 }
 
 .stat-desc {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: var(--text-muted);
 }
 
-/* 4. TITLE COMPONENT */
+/* 4. ITINERARY TIMELINE SECTION */
 .section-title {
     text-align: center;
     font-size: 2.2rem;
-    margin-bottom: 45px;
-    color: var(--text-dark);
+    margin-bottom: 40px;
     position: relative;
+    color: var(--text-dark);
 }
 
 .section-title::after {
     content: '';
     display: block;
-    width: 60px;
+    width: 50px;
     height: 3px;
     background: var(--accent-orange);
-    margin: 12px auto 0;
+    margin: 15px auto 0 auto;
     border-radius: 2px;
 }
 
-/* 5. ITINERARY TIMELINE (NO IMAGES) */
 .day-tabs {
     display: flex;
     justify-content: center;
-    margin-bottom: 40px;
     gap: 15px;
+    margin-bottom: 40px;
 }
 
 .tab-btn {
-    padding: 12px 28px;
+    padding: 12px 25px;
     border: none;
-    background: var(--white);
-    cursor: pointer;
-    font-size: 1rem;
+    background: #e2e8f0;
+    color: var(--text-dark);
+    font-family: 'Montserrat', sans-serif;
     font-weight: 600;
+    font-size: 0.95rem;
     border-radius: 25px;
-    color: var(--text-muted);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.04);
-    transition: all 0.3s;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 .tab-btn.active, .tab-btn:hover {
-    background: #27ae60;
+    background: var(--primary-green);
     color: var(--white);
 }
 
@@ -197,91 +190,77 @@ h1, h2, h3, h4, .hero-subtitle {
 
 .tab-content.active {
     display: block;
-    animation: fadeIn 0.6s ease;
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(15px); }
-    to { opacity: 1; transform: translateY(0); }
 }
 
 .day-title {
     font-size: 1.4rem;
     margin-bottom: 30px;
-    color: #27ae60;
+    color: var(--primary-green);
     text-align: center;
 }
 
 .timeline {
     position: relative;
-    border-left: 2px dashed #bdc3c7;
-    margin-left: 20px;
+    max-width: 800px;
+    margin: 0 auto;
     padding-left: 30px;
+    border-left: 2px solid #e2e8f0;
 }
 
 .timeline-item {
     position: relative;
-    margin-bottom: 35px;
+    margin-bottom: 40px;
 }
 
 .timeline-item::before {
     content: '';
     position: absolute;
-    left: -39px;
-    top: 6px;
-    width: 16px;
-    height: 16px;
+    left: -37px;
+    top: 5px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
     background: var(--accent-orange);
     border: 3px solid var(--white);
-    box-shadow: 0 0 0 2px #bdc3c7;
+    box-shadow: 0 0 0 3px rgba(211, 84, 0, 0.2);
 }
 
 .time {
-    font-weight: 700;
+    font-weight: 600;
     color: var(--accent-orange);
-    font-size: 1.1rem;
+    font-size: 0.9rem;
     margin-bottom: 5px;
 }
 
-.activity {
-    background: var(--white);
-    padding: 22px 25px;
-    border-radius: 12px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-}
-
 .activity h4 {
+    font-size: 1.15rem;
     margin-bottom: 10px;
-    font-size: 1.25rem;
     color: var(--text-dark);
 }
 
-/* 6. FOOD MAP CARDS CONTAINER */
+.activity p {
+    color: #5a6578;
+    font-size: 0.95rem;
+}
+
+/* 5. FOOD MAP SECTION */
 .food-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
-    margin-top: 30px;
+    gap: 30px;
 }
 
 .food-card {
     background: var(--white);
     border-radius: 16px;
     overflow: hidden;
-    box-shadow: 0 8px 25px rgba(0,0,0,0.03);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.02);
     display: flex;
     flex-direction: column;
-    transition: transform 0.3s;
-}
-
-.food-card:hover {
-    transform: translateY(-5px);
 }
 
 .food-card-img {
-    height: 240px;
-    width: 100%;
+    height: 200px;
     overflow: hidden;
 }
 
@@ -299,80 +278,98 @@ h1, h2, h3, h4, .hero-subtitle {
 .food-card-body {
     padding: 25px;
     flex-grow: 1;
-    display: flex;
-    flex-direction: column;
 }
 
 .food-card-body h3 {
-    font-size: 1.3rem;
+    font-size: 1.2rem;
     margin-bottom: 8px;
     color: var(--text-dark);
 }
 
 .food-address {
-    font-size: 0.9rem;
+    font-size: 0.85rem;
     color: var(--accent-orange);
-    font-weight: 600;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    gap: 5px;
+    margin-bottom: 12px;
+    font-weight: 500;
 }
 
 .food-card-body p {
+    font-size: 0.9rem;
     color: var(--text-muted);
-    font-size: 0.95rem;
-    margin: 0;
 }
 
-/* 7. BALANCED IMAGE GALLERY GRID */
-.gallery-grid {
+/* 6. STYLE GRID CHO KHU VỰC ALBUM ẢNH MÙA DALAT (HTML THUẦN) */
+.room-category-block {
+    margin-bottom: 50px;
+}
+
+.room-category-title {
+    margin: 30px 0 5px 0;
+    color: var(--accent-orange);
+    font-family: 'Comfortaa', cursive;
+    font-size: 1.4rem;
+}
+
+.room-category-desc {
+    color: var(--text-muted);
+    margin-bottom: 20px;
+    font-size: 0.95rem;
+}
+
+.hotel-gallery-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(4, 1fr);
     gap: 20px;
 }
 
-.gallery-card {
+.gallery-item {
     position: relative;
-    overflow: hidden;
     border-radius: 12px;
-    height: 250px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.04);
-    border: 1px solid rgba(0,0,0,0.05);
-    background: #eaeaea;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+    height: 220px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.gallery-card img {
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.gallery-item img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
 }
 
-.gallery-card:hover img {
-    transform: scale(1.08);
-}
-
-.gallery-card span {
+.gallery-item span {
     position: absolute;
-    bottom: 15px;
-    left: 15px;
-    background: rgba(44, 62, 80, 0.85);
-    color: var(--white);
-    padding: 4px 12px;
-    border-radius: 20px;
-    font-size: 0.8rem;
-    font-weight: 500;
-    backdrop-filter: blur(2px);
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0,0,0,0.75));
+    color: #fff;
+    padding: 15px 10px 8px 10px;
+    font-size: 0.85rem;
+    text-align: center;
 }
 
-/* 8. BUDGET CALCULATION TABLE (AT THE BOTTOM) */
+/* 7. BUDGET CALCULATION TABLE */
 .budget-table-wrapper {
     background: var(--white);
     padding: 30px;
     border-radius: 16px;
     box-shadow: 0 8px 25px rgba(0,0,0,0.03);
     overflow-x: auto;
+}
+
+blockquote {
+    background: #ebf8ff;
+    border-left: 4px solid #3182ce;
+    padding: 15px 20px;
+    border-radius: 4px;
+    color: #2b6cb0;
+    font-size: 0.9rem;
 }
 
 table {
@@ -402,25 +399,23 @@ th {
 
 .per-person-row {
     font-weight: 700;
-    background-color: #f0fdf4;
-    color: #27ae60;
-    font-size: 1.25rem;
+    background-color: #f0fff4;
+    color: #38a169;
 }
 
-/* 9. FOOTER SETTING */
+/* 8. FOOTER SECTION */
 footer {
+    background: var(--primary-green);
+    color: var(--white);
     text-align: center;
-    padding: 40px;
-    background: #2c3e50;
-    color: #bdc3c7;
+    padding: 30px 20px;
     font-size: 0.9rem;
-    margin-top: 60px;
 }
 
-/* 10. RESPONSIVE BREAKPOINTS */
-@media (max-width: 900px) {
-    .food-grid {
-        grid-template-columns: 1fr;
+/* 9. RESPONSIVE MEDIA QUERIES */
+@media (max-width: 1024px) {
+    .hotel-gallery-grid {
+        grid-template-columns: repeat(3, 1fr);
     }
 }
 
@@ -434,5 +429,21 @@ footer {
     }
     .day-tabs {
         flex-wrap: wrap;
+    }
+    .food-grid {
+        grid-template-columns: 1fr;
+    }
+    .hotel-gallery-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+    .gallery-item {
+        height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .hotel-gallery-grid {
+        grid-template-columns: 1fr;
     }
 }
